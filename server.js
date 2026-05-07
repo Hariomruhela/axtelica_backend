@@ -15,12 +15,22 @@ app.use(cors({
 
 // ✅ SMTP Transport
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  requireTLS: true,
+
   auth: {
     user: "it21.hariomruhela@svceindore.ac.in",
     pass: "agbx fyfp wnef mgkk",
   },
+
+  tls: {
+    family: 4,
+    rejectUnauthorized: false,
+  },
 });
+
 // ===============================
 // 📩 DEMO FORM API
 // ===============================
@@ -53,11 +63,10 @@ app.post("/api/demo", async (req, res) => {
     }
 
     // ✅ Send Email
-    const response = await transporter.sendMail({
+   await transporter.sendMail({
   from: `"Axtelica" <it21.hariomruhela@svceindore.ac.in>`,
   to: "hello@techquitoes.com",
   replyTo: email,
-
       subject: "🚀 New Demo Request",
 
       html: `
