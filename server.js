@@ -134,10 +134,10 @@ app.post("/api/contact", async (req, res) => {
     }
 
     // ✅ Send Email
-    await resend.emails.send({
+    await transporter.sendMail({
       from: "Axtelica <it21.hariomruhela@svceindore.ac.in>",
       to: ["hello@techquitoes.com"],
-      reply_to: email,
+      replyTo: email,
 
       // ✅ CHANGED SUBJECT
       subject: "📩 New Contact Message",
