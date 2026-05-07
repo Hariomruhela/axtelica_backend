@@ -1,21 +1,26 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
 dotenv.config();
 
 const app = express();
 
-// ✅ Middleware
 app.use(express.json());
+
 app.use(cors({
-  origin: "*", // later change to your frontend domain
+  origin: "*",
 }));
 
-// ✅ Resend setup (use ENV)
-const resend = new Resend('re_AjDufNvz_GeaF3ju8MTn6cJU5Vw9go9vo');
-
+// ✅ SMTP Transport
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "it21.hariomruhela@svceindore.ac.in",
+    pass: "agbx fyfp wnef mgkk",
+  },
+});
 // ===============================
 // 📩 DEMO FORM API
 // ===============================
@@ -48,10 +53,10 @@ app.post("/api/demo", async (req, res) => {
     }
 
     // ✅ Send Email
-    const response = await resend.emails.send({
-      from: "Axtelica <onboarding@resend.dev>", // ✅ working default sender
-      to: ["hariomruhela0@gmail.com"], // your inbox
-      reply_to: email,
+    const response = await transporter.sendMail({
+  from: `"Axtelica" <it21.hariomruhela@svceindore.ac.in>`,
+  to: "hello@techquitoes.com",
+  replyTo: email,
 
       subject: "🚀 New Demo Request",
 
@@ -125,8 +130,8 @@ app.post("/api/contact", async (req, res) => {
 
     // ✅ Send Email
     await resend.emails.send({
-      from: "Axtelica <onboarding@resend.dev>",
-      to: ["hariomruhela0@gmail.com"],
+      from: "Axtelica <it21.hariomruhela@svceindore.ac.in>",
+      to: ["hello@techquitoes.com"],
       reply_to: email,
 
       // ✅ CHANGED SUBJECT
