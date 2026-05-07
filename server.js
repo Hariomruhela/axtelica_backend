@@ -18,17 +18,13 @@ const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
   secure: false,
-  requireTLS: true,
 
   auth: {
     user: "it21.hariomruhela@svceindore.ac.in",
     pass: "agbx fyfp wnef mgkk",
   },
 
-  tls: {
-    family: 4,
-    rejectUnauthorized: false,
-  },
+  family: 4, // FORCE IPv4
 });
 
 // ===============================
